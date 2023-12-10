@@ -49,9 +49,12 @@ include_directories(include ${EIGEN3_INCLUDE_DIRS})
 add_executable(${PROJECT_NAME}_node
         src/marker_tracker_node.cpp
         include/marker_tracker_controller/marker_tracker_controller.cpp
-        include/marker_tracker_controller/marker_tracker_controller.h
         include/tracker/tracker.cpp
-        include/tracker/tracker.h
+        include/normal_tracker/normal_tracker.cpp
+        include/tracker/tracker_result.cpp
+        include/buff_tracker/buff_tracker.cpp
+        include/kalman/kalman.cpp
+        include/params/kalman_params.cpp
 )
 
 ament_target_dependencies(${PROJECT_NAME}_node ${AMENT_DEPENDENCIES})

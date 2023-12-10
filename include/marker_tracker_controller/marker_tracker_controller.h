@@ -21,7 +21,7 @@ private:
 
     void detectResultsCallback(marker_detector::msg::DetectResults::SharedPtr detectResults);
 
-    int calculateBestTarget(std::vector<robot_serial::msg::Aim>& trackerResults);
+    int calculateBestTarget(TrackerResults& trackerResults);
 
 public:
     MarkerTrackerController();

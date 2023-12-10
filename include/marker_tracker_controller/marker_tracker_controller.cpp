@@ -16,16 +16,16 @@ MarkerTrackerController::MarkerTrackerController() : Node("marker_tracker_contro
 
 void
 MarkerTrackerController::detectResultsCallback(const marker_detector::msg::DetectResults::SharedPtr detectResults) {
-    std::vector<robot_serial::msg::Aim> trackerResults;
+    TrackerResults trackerResults;
     for (const auto& detectResult: detectResults->detect_results) {
         trackerResults.push_back(trackers[detectResult.id]->track(detectResult.pose));
     }
     int bestTargetId = calculateBestTarget(trackerResults);
     if (bestTargetId != -1) {
-        aimPublisher->publish(trackerResults[bestTargetId]);
+        aimPublisher->publish(trackerResults[bestTargetId].toRosMsg());
     }
 }
 
-int MarkerTrackerController::calculateBestTarget(std::vector<robot_serial::msg::Aim>& trackerResults) {
-    return 0;
+int MarkerTrackerController::calculateBestTarget(TrackerResults& trackerResults) {
+    return -1;
 }
