@@ -1400,7 +1400,7 @@ bool DafuKalman::is_direction_positive() {
  * @param is_unsucceeseful 当前是否识别到
  * @param _wordCoord 解算装甲板的世界坐标
  * @param _yaw 的装甲板的yaw角
- * @param _nubmer_of_board 目标车辆/前哨站含有的装甲板的数量
+ * @param _number_of_board 目标车辆/前哨站含有的装甲板的数量
  * @param _kalman_CV kf指针
  * @param _ekf_ROTA ekf指针
  * @param _kf_output kf输出结果
@@ -1408,7 +1408,7 @@ bool DafuKalman::is_direction_positive() {
  * @return 0：未识别到，1：采用kf，2：采用ekf
  **/
 int
-IMM_kalman(const bool& is_unsucceeseful, const Eigen::VectorXd& _wordCoord, double& _yaw, const int _nubmer_of_board,
+IMM_kalman(const bool& is_unsucceeseful, const Eigen::VectorXd& _wordCoord, double& _yaw, const int _number_of_board,
            Kalman* _kalman_CV, ExternKalman* _ekf_ROTA, KalmanOutput& _kf_output, EkfOutput& _ekf_output,
            const Eigen::Matrix3d& _rota_matrix3) {
     Eigen::VectorXd wordCoord_temp;
@@ -1422,7 +1422,7 @@ IMM_kalman(const bool& is_unsucceeseful, const Eigen::VectorXd& _wordCoord, doub
     wordCoord_ekf(1) = -_wordCoord(1);//ekf坐标系转换
 //    double yaw = _yaw > M_PI ? _yaw - 2 * M_PI : (_yaw < -M_PI ? _yaw + 2 * M_PI : _yaw);
     ekf_input << wordCoord_ekf, _yaw;//小陀罗卡尔曼的坐标系和车体坐标系不太一样
-    _ekf_output = _ekf_ROTA->extern_kalman_filter(is_unsucceeseful, ekf_input, _nubmer_of_board);
+    _ekf_output = _ekf_ROTA->extern_kalman_filter(is_unsucceeseful, ekf_input, _number_of_board);
     _yaw = ekf_input(3);
     static bool if_ekf = false;
     if (if_ekf) {

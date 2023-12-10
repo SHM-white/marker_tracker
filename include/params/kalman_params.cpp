@@ -4,7 +4,7 @@
 
 #include "kalman_params.h"
 
-void KalManParams::init(rclcpp::Node::SharedPtr _node) {
+void KalManParams::init(const rclcpp::Node::SharedPtr _node) {
     node = _node;
     node->declare_parameter("/kalman/Dt");
 

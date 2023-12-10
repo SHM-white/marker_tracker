@@ -372,7 +372,7 @@ public:
 };
 
 int
-IMM_kalman(const bool& is_unsucceeseful, const Eigen::VectorXd& _wordCoord, double& _yaw, const int _nubmer_of_board,
+IMM_kalman(const bool& is_unsucceeseful, const Eigen::VectorXd& _wordCoord, double& _yaw, const int _number_of_board,
            Kalman* _kalman_CV, ExternKalman* _ekf_ROTA, KalmanOutput& _kf_output, EkfOutput& _ekf_output,
            const Eigen::Matrix3d& _rota_matrix3);
 

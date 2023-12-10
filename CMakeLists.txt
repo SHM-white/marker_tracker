@@ -55,6 +55,9 @@ add_executable(${PROJECT_NAME}_node
         include/buff_tracker/buff_tracker.cpp
         include/kalman/kalman.cpp
         include/params/kalman_params.cpp
+        include/params/ballistics_params.cpp
+        include/params/cam_params.cpp
+        include/ballistics/ballistics.cpp
 )
 
 ament_target_dependencies(${PROJECT_NAME}_node ${AMENT_DEPENDENCIES})
