@@ -4,6 +4,6 @@
 
 #include "normal_tracker.h"
 
-TrackerResult NormalTracker::track(geometry_msgs::msg::Pose pose) {
-    return {};
+robot_serial::msg::Aim NormalTracker::track(geometry_msgs::msg::Pose) {
+    return robot_serial::msg::Aim();
 }

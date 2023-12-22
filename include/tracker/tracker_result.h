@@ -21,6 +21,6 @@ struct TrackerResult {
     [[nodiscard]] robot_serial::msg::Aim toRosMsg() const;
 };
 
-using TrackerResults = std::vector<TrackerResult>;
+using TrackerResults = std::vector<robot_serial::msg::Aim>;
 
 #endif //MARKER_TRACKER_TRACKER_RESULT_H

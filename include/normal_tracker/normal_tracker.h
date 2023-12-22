@@ -12,7 +12,7 @@ class NormalTracker : public Tracker{
 private:
 
 public:
-    TrackerResult track(geometry_msgs::msg::Pose pose) override;
+    robot_serial::msg::Aim track(geometry_msgs::msg::Pose pose) override;
 };
 
 

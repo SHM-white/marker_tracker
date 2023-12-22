@@ -16,7 +16,7 @@ class Tracker {
 private:
 
 public:
-    virtual TrackerResult track(geometry_msgs::msg::Pose pose) = 0;
+    virtual robot_serial::msg::Aim track(geometry_msgs::msg::Pose pose) = 0;
 
     using SharedPtr = std::shared_ptr<Tracker>;
 };

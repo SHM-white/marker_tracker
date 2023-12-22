@@ -21,6 +21,10 @@ public:
     double getPitchOffset();
 
     double getYawOffset();
+
+    double getXOffset();
+
+    double getZOffset();
 };
 
 #define camParams CamParams::get_mutable_instance()

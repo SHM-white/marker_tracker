@@ -16,14 +16,6 @@
 
 class MarkerTrackerController : public rclcpp::Node {
 private:
-    double gimbalYaw;
-    double gimbalPitch;
-    double gimbalRoll;
-    std::uint8_t ball_speed;
-    Eigen::Matrix3d cam2world;
-    Eigen::Vector3d camCoord;
-    Eigen::Vector3d worldCoord;
-
     std::unordered_map<int, Tracker::SharedPtr> trackers;
 
     rclcpp::Publisher<robot_serial::msg::Aim>::SharedPtr aimPublisher;
@@ -31,8 +23,6 @@ private:
     rclcpp::Subscription<marker_detector::msg::DetectResults>::SharedPtr detectResultsSubscription;
 
     void detectResultsCallback(marker_detector::msg::DetectResults::SharedPtr detectResults);
-
-    void gimbalCallback(robot_serial::msg::Gimbal::SharedPtr msg);
 
     static int calculateBestTarget(const TrackerResults& trackerResults);
 
