@@ -59,6 +59,7 @@ add_executable(${PROJECT_NAME}_node
         include/params/cam_params.cpp
         include/ballistics/ballistics.cpp
         include/params/enemy_params.cpp
+        include/station_tracker/station_tracker.cpp
 )
 
 ament_target_dependencies(${PROJECT_NAME}_node ${AMENT_DEPENDENCIES})

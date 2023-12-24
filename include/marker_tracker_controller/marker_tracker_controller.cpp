@@ -12,6 +12,12 @@ MarkerTrackerController::MarkerTrackerController() : Node("marker_tracker_contro
             10,
             std::bind(&MarkerTrackerController::detectResultsCallback, this, std::placeholders::_1)
     );
+
+    modeSubscription = create_subscription<robot_serial::msg::Mode>(
+            "/robot/mode",
+            10,
+            std::bind(&MarkerTrackerController::modeCallback, this, std::placeholders::_1)
+    );
 }
 
 void MarkerTrackerController::init() {
@@ -30,6 +36,14 @@ MarkerTrackerController::detectResultsCallback(const marker_detector::msg::Detec
     int bestTargetId = calculateBestTarget(trackerResults);
     if (bestTargetId != -1) {
         aimPublisher->publish(trackerResults[bestTargetId]);
+    }
+}
+
+void MarkerTrackerController::modeCallback(const robot_serial::msg::Mode::SharedPtr modeMsg) {
+    if (static_cast<Mode>(modeMsg->mode) != mode) {
+        if (static_cast<Mode>(modeMsg->mode) == Mode::OUTPOST) {
+            trackers[-2]->reinitialize(modeMsg->config);
+        }
     }
 }
 
