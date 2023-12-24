@@ -9,14 +9,17 @@
 
 #include <geometry_msgs/msg/pose.hpp>
 #include <robot_serial/msg/aim.hpp>
+#include <marker_detector/msg/detail/detect_result__struct.hpp>
 
 #include "tracker_result.h"
 
 class Tracker {
-private:
-
+protected:
+    int id;
 public:
-    virtual robot_serial::msg::Aim track(geometry_msgs::msg::Pose pose) = 0;
+    explicit Tracker(int _id);
+
+    virtual robot_serial::msg::Aim track(marker_detector::msg::DetectResult detectResult) = 0;
 
     using SharedPtr = std::shared_ptr<Tracker>;
 };

@@ -12,6 +12,9 @@
 #include <robot_serial/msg/gimbal.hpp>
 
 #include "tracker/tracker.h"
+#include "params/ballistics_params.h"
+#include "params/cam_params.h"
+#include "params/enemy_params.h"
 #include "params/kalman_params.h"
 
 class MarkerTrackerController : public rclcpp::Node {

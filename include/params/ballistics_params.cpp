@@ -7,6 +7,8 @@
 void BallisticsParams::init(rclcpp::Node::SharedPtr _node) {
     node = _node;
 
+    node->declare_parameter("ballistics/fire_delay", 0);
+
     gimbalSubscription = node->create_subscription<robot_serial::msg::Gimbal>(
             "/robot/gimbal",
             1,
@@ -42,6 +44,6 @@ Eigen::Vector3d BallisticsParams::getWorldCoord(double x, double y, double z) {
     return cam2world * camCoord;
 }
 
-int BallisticsParams::getBallSpeed() {
-    return ballSpeed;
+long BallisticsParams::getFireDelay() {
+    return node->get_parameter("ballistics/fire_delay").as_int();
 }

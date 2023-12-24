@@ -16,7 +16,7 @@ class BuffTracker : public Tracker {
 private:
     Ballistics ballistics;
 public:
-    robot_serial::msg::Aim track(geometry_msgs::msg::Pose pose) override;
+    robot_serial::msg::Aim track(marker_detector::msg::DetectResult detectResult) override;
 };
 
 

@@ -20,7 +20,7 @@
 
 #include "params/kalman_params.h"
 
-typedef struct {
+struct KalmanOutput{
     double x;
     double v_x;
     double a_x;
@@ -32,9 +32,9 @@ typedef struct {
     double a_z;
     bool is_success;
     float sigma;
-} KalmanOutput;
+};
 
-typedef struct {
+struct EkfOutput{
     double x;
     double y;
     double theta;
@@ -47,9 +47,9 @@ typedef struct {
     double z_next;
     bool is_success;
     float sigma;
-} EkfOutput;
+};
 
-typedef struct {
+struct DafuOutput{
     double ang;
     double a;
     double w;
@@ -58,7 +58,7 @@ typedef struct {
 
     bool is_success;
     float sigma;
-} DafuOutput;
+};
 
 class Kalman {
 private:

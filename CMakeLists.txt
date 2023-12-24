@@ -50,7 +50,7 @@ add_executable(${PROJECT_NAME}_node
         src/marker_tracker_node.cpp
         include/marker_tracker_controller/marker_tracker_controller.cpp
         include/tracker/tracker.cpp
-        include/normal_tracker/normal_tracker.cpp
+        include/armor_tracker/armor_tracker.cpp
         include/tracker/tracker_result.cpp
         include/buff_tracker/buff_tracker.cpp
         include/kalman/kalman.cpp
@@ -58,6 +58,7 @@ add_executable(${PROJECT_NAME}_node
         include/params/ballistics_params.cpp
         include/params/cam_params.cpp
         include/ballistics/ballistics.cpp
+        include/params/enemy_params.cpp
 )
 
 ament_target_dependencies(${PROJECT_NAME}_node ${AMENT_DEPENDENCIES})

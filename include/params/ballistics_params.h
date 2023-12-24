@@ -16,6 +16,9 @@ class BallisticsParams : public boost::serialization::singleton<BallisticsParams
 private:
     rclcpp::Node::SharedPtr node;
 
+    rclcpp::Subscription<robot_serial::msg::Gimbal>::SharedPtr gimbalSubscription;
+
+public:
     double gimbalYaw;
     double gimbalPitch;
     double gimbalRoll;
@@ -23,16 +26,13 @@ private:
     Eigen::Matrix3d cam2world;
     Eigen::Vector3d camCoord;
 
-    rclcpp::Subscription<robot_serial::msg::Gimbal>::SharedPtr gimbalSubscription;
-
-public:
     void init(rclcpp::Node::SharedPtr _node);
 
     void gimbalCallback(const robot_serial::msg::Gimbal::ConstSharedPtr msg);
 
     Eigen::Vector3d getWorldCoord(double x, double y, double z);
 
-    int getBallSpeed();
+    long getFireDelay();
 };
 
 

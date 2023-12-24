@@ -15,6 +15,9 @@ MarkerTrackerController::MarkerTrackerController() : Node("marker_tracker_contro
 }
 
 void MarkerTrackerController::init() {
+    ballisticsParams.init(shared_from_this());
+    camParams.init(shared_from_this());
+    enemyParams.init(shared_from_this());
     kalManParams.init(shared_from_this());
 }
 
@@ -22,7 +25,7 @@ void
 MarkerTrackerController::detectResultsCallback(const marker_detector::msg::DetectResults::SharedPtr detectResults) {
     TrackerResults trackerResults;
     for (const auto& detectResult: detectResults->detect_results) {
-        trackerResults.push_back(trackers[detectResult.id]->track(detectResult.pose));
+        trackerResults.push_back(trackers[detectResult.id]->track(detectResult));
     }
     int bestTargetId = calculateBestTarget(trackerResults);
     if (bestTargetId != -1) {
@@ -31,5 +34,5 @@ MarkerTrackerController::detectResultsCallback(const marker_detector::msg::Detec
 }
 
 int MarkerTrackerController::calculateBestTarget(const TrackerResults& trackerResults) {
-    return -1;
+    return (int) trackerResults.size() - 1;
 }

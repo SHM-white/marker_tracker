@@ -3,3 +3,5 @@
 //
 
 #include "tracker.h"
+
+Tracker::Tracker(int _id) : id(_id) {}
