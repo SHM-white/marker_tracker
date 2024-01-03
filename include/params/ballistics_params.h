@@ -26,7 +26,7 @@ public:
     Eigen::Matrix3d cam2world;
     Eigen::Vector3d camCoord;
 
-    void init(rclcpp::Node::SharedPtr _node);
+    void init(const rclcpp::Node::SharedPtr& _node);
 
     void gimbalCallback(const robot_serial::msg::Gimbal::ConstSharedPtr msg);
 

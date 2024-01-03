@@ -30,11 +30,14 @@ set(AMENT_DEPENDENCIES
 foreach (AMENT_DEPENDENCY ${AMENT_DEPENDENCIES})
   find_package(${AMENT_DEPENDENCY} REQUIRED)
 endforeach ()
-#find_package(rosidl_default_generators REQUIRED)
 
-#rosidl_generate_interfaces(${PROJECT_NAME}
-#        DEPENDENCIES
-#)
+find_package(rosidl_default_generators REQUIRED)
+
+rosidl_generate_interfaces(${PROJECT_NAME}
+        "msg/Kalman.msg"
+        DEPENDENCIES
+        std_msgs
+)
 
 find_package(OpenCV REQUIRED)
 find_package(Eigen3 REQUIRED)
@@ -58,12 +61,11 @@ add_executable(${PROJECT_NAME}_node
         include/params/ballistics_params.cpp
         include/params/cam_params.cpp
         include/ballistics/ballistics.cpp
-        include/params/enemy_params.cpp
         include/station_tracker/station_tracker.cpp
 )
 
 ament_target_dependencies(${PROJECT_NAME}_node ${AMENT_DEPENDENCIES})
-#rosidl_target_interfaces(${PROJECT_NAME}_node ${PROJECT_NAME} "rosidl_typesupport_cpp")
+rosidl_target_interfaces(${PROJECT_NAME}_node ${PROJECT_NAME} "rosidl_typesupport_cpp")
 target_link_libraries(${PROJECT_NAME}_node ${LIBRARIES})
 target_include_directories(${PROJECT_NAME}_node PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>

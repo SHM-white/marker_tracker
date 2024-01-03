@@ -13,16 +13,17 @@
 #include <robot_serial/msg/mode.hpp>
 
 #include "tracker/tracker.h"
+#include "armor_tracker/armor_tracker.h"
+#include "buff_tracker/buff_tracker.h"
 #include "params/ballistics_params.h"
 #include "params/cam_params.h"
-#include "params/enemy_params.h"
 #include "params/kalman_params.h"
 
 class MarkerTrackerController : public rclcpp::Node {
 private:
     enum class Mode : uint8_t {
         AUTO_AIM, BUFF, OUTPOST, NUM
-    } mode = Mode::BUFF;
+    } mode = Mode::AUTO_AIM;
 
     std::unordered_map<int, Tracker::SharedPtr> trackers;
 

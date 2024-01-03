@@ -16,9 +16,6 @@ Kalman::Kalman(uint8_t _mode) : mode(_mode) {
     sigma_index = 0;
     noise_cnt = 0;
     missing_cnt = KALMAN_PREDICT_MAX;
-    if (stateSize == 0 || measSize == 0) {
-        std::cerr << "Error, State size and measurement size must bigger than 0\n";
-    }
     switch (mode) {
         case KalmanType::CVMODE:
             stateSize = 6;
@@ -35,6 +32,9 @@ Kalman::Kalman(uint8_t _mode) : mode(_mode) {
             measSize = 1;
             uSize = 0;
             break;
+    }
+    if (stateSize == 0 || measSize == 0) {
+        std::cerr << "Error, State size and measurement size must bigger than 0\n";
     }
     x.resize(stateSize);
     x.setOnes();

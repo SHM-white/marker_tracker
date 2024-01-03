@@ -7,21 +7,21 @@
 
 #include <Eigen/Core>
 #include <marker_detector/msg/detect_results.hpp>
+#include <marker_tracker/msg/kalman.hpp>
 
 #include "tracker/tracker.h"
 #include "tracker/tracker_result.h"
 
 #include "params/ballistics_params.h"
-#include "params/enemy_params.h"
 #include "kalman/kalman.hpp"
 
 class ArmorTracker : public Tracker {
 private:
-    explicit ArmorTracker(int id);
-
     Kalman kalman_CV;
     ExternKalman ekf_ROTA;
 public:
+    explicit ArmorTracker(int id);
+
     robot_serial::msg::Aim track(marker_detector::msg::DetectResult detectResult) override;
 };
 

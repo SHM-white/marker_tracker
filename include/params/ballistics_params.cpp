@@ -4,10 +4,10 @@
 
 #include "ballistics_params.h"
 
-void BallisticsParams::init(rclcpp::Node::SharedPtr _node) {
+void BallisticsParams::init(const rclcpp::Node::SharedPtr& _node) {
     node = _node;
 
-    node->declare_parameter("ballistics/fire_delay", 0);
+    node->declare_parameter("ballistics.fire_delay", 0);
 
     gimbalSubscription = node->create_subscription<robot_serial::msg::Gimbal>(
             "/robot/gimbal",
@@ -45,5 +45,5 @@ Eigen::Vector3d BallisticsParams::getWorldCoord(double x, double y, double z) {
 }
 
 long BallisticsParams::getFireDelay() {
-    return node->get_parameter("ballistics/fire_delay").as_int();
+    return node->get_parameter("ballistics.fire_delay").as_int();
 }

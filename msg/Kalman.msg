@@ -1,0 +1,11 @@
+std_msgs/Header header
+float64 kalman_x
+float64 kalman_y
+float64 kalman_z
+float64 raw_x
+float64 raw_y
+float64 raw_z
+float64 v_x
+float64 v_y
+float64 v_z
+float32 sigma

@@ -9,11 +9,14 @@
 #include <boost/serialization/singleton.hpp>
 
 #include <rclcpp/rclcpp.hpp>
+#include <marker_tracker/msg/kalman.hpp>
 
 class KalManParams : public boost::serialization::singleton<KalManParams> {
 private:
     rclcpp::Node::SharedPtr node;
 public:
+    std::array<rclcpp::Publisher<marker_tracker::msg::Kalman>::SharedPtr, 7> kalmanPublishers;
+
     void init(rclcpp::Node::SharedPtr _node);
 
     double get__Dt();

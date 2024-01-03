@@ -23,8 +23,11 @@ MarkerTrackerController::MarkerTrackerController() : Node("marker_tracker_contro
 void MarkerTrackerController::init() {
     ballisticsParams.init(shared_from_this());
     camParams.init(shared_from_this());
-    enemyParams.init(shared_from_this());
     kalManParams.init(shared_from_this());
+    for (int i = 1; i <= 7; i++) {
+        trackers[i] = std::make_shared<ArmorTracker>(i);
+    }
+    trackers[0] = std::make_shared<BuffTracker>();
 }
 
 void
@@ -42,7 +45,7 @@ MarkerTrackerController::detectResultsCallback(const marker_detector::msg::Detec
 void MarkerTrackerController::modeCallback(const robot_serial::msg::Mode::SharedPtr modeMsg) {
     if (static_cast<Mode>(modeMsg->mode) != mode) {
         if (static_cast<Mode>(modeMsg->mode) == Mode::OUTPOST) {
-            trackers[-2]->reinitialize(modeMsg->config);
+            trackers[7]->reinitialize(modeMsg->config);
         }
     }
 }
