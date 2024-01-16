@@ -19,6 +19,7 @@ endif ()
 # find dependencies and libraries
 set(AMENT_DEPENDENCIES
         rclcpp
+        angles
         cv_bridge
         std_msgs
         geometry_msgs
