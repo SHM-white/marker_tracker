@@ -2,7 +2,7 @@
 // Created by mijiao on 23-12-8.
 //
 
-#include "armor_tracker.h"
+#include "armor_tracker/armor_tracker.h"
 
 ArmorTracker::ArmorTracker(int id) : Tracker(id), kalman_CV(Kalman::KalmanType::CAMODE) {}
 
@@ -58,8 +58,8 @@ robot_serial::msg::Aim ArmorTracker::track(marker_detector::msg::DetectResult de
                                                             detectResult.pose.position.z)(1);
         kalman_scope.raw_z = ballisticsParams.getWorldCoord(detectResult.pose.position.x, detectResult.pose.position.y,
                                                             detectResult.pose.position.z)(2);
-//        kalman_scope.kalman_x = top_ekf_output.x;
-//        kalman_scope.kalman_y = top_ekf_output.y;
+        kalman_scope.kalman_x = top_ekf_output.x;
+        kalman_scope.kalman_y = top_ekf_output.y;
         kalman_scope.kalman_z = top_ekf_output.theta + M_PI;
         kalman_scope.v_z = top_ekf_output.w;
         kalman_scope.v_x = top_ekf_output.x0;
@@ -84,7 +84,7 @@ robot_serial::msg::Aim ArmorTracker::track(marker_detector::msg::DetectResult de
             aimShoot.target_number = 0;
             aimShoot.target_rate = 0;
         }
-        kalManParams.kalmanPublishers[id]->publish(kalman_scope);
+        kalManParams.kalmanPublishers[id - 1]->publish(kalman_scope);
     }
 
     return aimShoot;

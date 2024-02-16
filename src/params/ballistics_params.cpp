@@ -2,9 +2,9 @@
 // Created by mijiao on 23-12-10.
 //
 
-#include "ballistics_params.h"
+#include "params/ballistics_params.h"
 
-void BallisticsParams::init(const rclcpp::Node::SharedPtr& _node) {
+void BallisticsParams::init(const rclcpp::Node::SharedPtr &_node) {
     node = _node;
 
     node->declare_parameter("ballistics.fire_delay", 0);

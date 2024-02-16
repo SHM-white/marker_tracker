@@ -1,4 +1,4 @@
-#include "kalman.hpp"
+#include "kalman/kalman.hpp"
 
 inline double sign(double t) {
     if (t > 0) {
@@ -450,7 +450,7 @@ Kalman::kalman_filter(bool is_unsucceeseful, const Eigen::VectorXd& _wordCoord, 
             output.a_y = 0;
             output.a_z = 0;
             output.sigma = sigma_caculate(_wordCoord);
-            std::cout << "kalman_CV ---------------------------------" << std::endl;
+            //std::cout << "kalman_CV ---------------------------------" << std::endl;
             break;
         case KalmanType::CAMODE:
             output.x = x(0);
@@ -464,13 +464,13 @@ Kalman::kalman_filter(bool is_unsucceeseful, const Eigen::VectorXd& _wordCoord, 
             output.a_z = x(8);
             output.sigma = a_Var();
 
-            std::cout << "kalman_CA ---------------------------------" << std::endl;
+            //std::cout << "kalman_CA ---------------------------------" << std::endl;
             break;
         case KalmanType::CVROTA:
             output.x = x(0);
             output.v_x = x(1);
 
-            std::cout << "kalman_CVROTE ---------------------------------" << std::endl;
+            //std::cout << "kalman_CVROTE ---------------------------------" << std::endl;
             break;
 
     }

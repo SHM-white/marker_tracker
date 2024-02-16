@@ -2,7 +2,7 @@
 // Created by mijiao on 23-12-10.
 //
 
-#include "ballistics.h"
+#include "ballistics/ballistics.h"
 
 using Ballistic_Coefficients_t = Ballistics::Ballistic_Coefficients_t;
 

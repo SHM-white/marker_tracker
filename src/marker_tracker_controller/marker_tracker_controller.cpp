@@ -2,7 +2,7 @@
 // Created by mijiao on 23-12-7.
 //
 
-#include "marker_tracker_controller.h"
+#include "marker_tracker_controller/marker_tracker_controller.h"
 
 MarkerTrackerController::MarkerTrackerController() : Node("marker_tracker_controller") {
     aimPublisher = create_publisher<robot_serial::msg::Aim>("/robot/auto_aim", 5);
@@ -33,7 +33,7 @@ void MarkerTrackerController::init() {
 void
 MarkerTrackerController::detectResultsCallback(const marker_detector::msg::DetectResults::SharedPtr detectResults) {
     TrackerResults trackerResults;
-    for (const auto& detectResult: detectResults->detect_results) {
+    for (const auto &detectResult: detectResults->detect_results) {
         trackerResults.push_back(trackers[detectResult.id]->track(detectResult));
     }
     int bestTargetId = calculateBestTarget(trackerResults);
@@ -50,6 +50,6 @@ void MarkerTrackerController::modeCallback(const robot_serial::msg::Mode::Shared
     }
 }
 
-int MarkerTrackerController::calculateBestTarget(const TrackerResults& trackerResults) {
-    return (int) trackerResults.size() - 1;
+int MarkerTrackerController::calculateBestTarget(const TrackerResults &trackerResults) {
+    return (int) fmin(trackerResults.size() - 1, 4);
 }

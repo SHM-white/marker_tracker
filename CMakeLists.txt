@@ -52,17 +52,17 @@ include_directories(include ${EIGEN3_INCLUDE_DIRS})
 
 add_executable(${PROJECT_NAME}_node
         src/marker_tracker_node.cpp
-        include/marker_tracker_controller/marker_tracker_controller.cpp
-        include/tracker/tracker.cpp
-        include/armor_tracker/armor_tracker.cpp
-        include/tracker/tracker_result.cpp
-        include/buff_tracker/buff_tracker.cpp
-        include/kalman/kalman.cpp
-        include/params/kalman_params.cpp
-        include/params/ballistics_params.cpp
-        include/params/cam_params.cpp
-        include/ballistics/ballistics.cpp
-        include/station_tracker/station_tracker.cpp
+        src/marker_tracker_controller/marker_tracker_controller.cpp
+        src/tracker/tracker.cpp
+        src/armor_tracker/armor_tracker.cpp
+        src/tracker/tracker_result.cpp
+        src/buff_tracker/buff_tracker.cpp
+        src/kalman/kalman.cpp
+        src/params/kalman_params.cpp
+        src/params/ballistics_params.cpp
+        src/params/cam_params.cpp
+        src/ballistics/ballistics.cpp
+        src/station_tracker/station_tracker.cpp
 )
 
 ament_target_dependencies(${PROJECT_NAME}_node ${AMENT_DEPENDENCIES})

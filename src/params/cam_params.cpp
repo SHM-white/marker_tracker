@@ -2,7 +2,7 @@
 // Created by mijiao on 23-12-10.
 //
 
-#include "cam_params.h"
+#include "params/cam_params.h"
 
 void CamParams::init(rclcpp::Node::SharedPtr _node) {
     node = _node;
