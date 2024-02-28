@@ -10,7 +10,6 @@
 #include <marker_tracker/msg/kalman.hpp>
 
 #include "tracker/tracker.h"
-#include "tracker/tracker_result.h"
 
 #include "params/ballistics_params.h"
 #include "kalman/kalman.hpp"

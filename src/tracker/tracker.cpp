@@ -6,7 +6,7 @@
 
 Tracker::Tracker(int _id) : id(_id) {}
 
-Eigen::Vector3d Tracker::toEulerAngles(const geometry_msgs::msg::Quaternion& quaternion) {
+Eigen::Vector3d Tracker::toEulerAngles(const geometry_msgs::msg::Quaternion &quaternion) {
     Eigen::Vector3d angles;    //yaw pitch roll
     const auto x = quaternion.x;
     const auto y = quaternion.y;
@@ -32,6 +32,6 @@ Eigen::Vector3d Tracker::toEulerAngles(const geometry_msgs::msg::Quaternion& qua
     return angles;
 }
 
-void Tracker::reinitialize(std::vector<uint8_t>) {
+void Tracker::reinitialize(const std::vector<uint8_t> &) {
 
 }

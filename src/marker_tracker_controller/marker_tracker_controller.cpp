@@ -4,6 +4,8 @@
 
 #include "marker_tracker_controller/marker_tracker_controller.h"
 
+using namespace std::chrono_literals;
+
 MarkerTrackerController::MarkerTrackerController() : Node("marker_tracker_controller") {
     aimPublisher = create_publisher<robot_serial::msg::Aim>("/robot/auto_aim", 5);
 
@@ -18,6 +20,8 @@ MarkerTrackerController::MarkerTrackerController() : Node("marker_tracker_contro
             10,
             std::bind(&MarkerTrackerController::modeCallback, this, std::placeholders::_1)
     );
+
+    kalmanTimer = create_wall_timer(5ms, [this] { kalmanCallback(); });
 }
 
 void MarkerTrackerController::init() {
@@ -31,18 +35,12 @@ void MarkerTrackerController::init() {
 }
 
 void
-MarkerTrackerController::detectResultsCallback(const marker_detector::msg::DetectResults::SharedPtr detectResults) {
-    TrackerResults trackerResults;
-    for (const auto &detectResult: detectResults->detect_results) {
-        trackerResults.push_back(trackers[detectResult.id]->track(detectResult));
-    }
-    int bestTargetId = calculateBestTarget(trackerResults);
-    if (bestTargetId != -1) {
-        aimPublisher->publish(trackerResults[bestTargetId]);
-    }
+MarkerTrackerController::detectResultsCallback(
+        const marker_detector::msg::DetectResults::ConstSharedPtr &detectResults) {
+    lastDetectResults = detectResults;
 }
 
-void MarkerTrackerController::modeCallback(const robot_serial::msg::Mode::SharedPtr modeMsg) {
+void MarkerTrackerController::modeCallback(const robot_serial::msg::Mode::ConstSharedPtr &modeMsg) {
     if (static_cast<Mode>(modeMsg->mode) != mode) {
         if (static_cast<Mode>(modeMsg->mode) == Mode::OUTPOST) {
             trackers[7]->reinitialize(modeMsg->config);
@@ -51,5 +49,25 @@ void MarkerTrackerController::modeCallback(const robot_serial::msg::Mode::Shared
 }
 
 int MarkerTrackerController::calculateBestTarget(const TrackerResults &trackerResults) {
-    return (int) fmin(trackerResults.size() - 1, 4);
+    //临时使用，锁序号最小的
+    for (size_t i = 0; i < trackerResults.size(); i++) {
+        if (trackerResults[i].success) {
+            return (int) i;
+        }
+    }
+    return -1;
+}
+
+void MarkerTrackerController::kalmanCallback() {
+    if (!lastDetectResults) {
+        return;
+    }
+    TrackerResults trackerResults(8);
+    for (const auto &detectResult: lastDetectResults->detect_results) {
+        trackerResults.push_back(trackers[detectResult.id]->track(detectResult));
+    }
+    int bestTargetId = calculateBestTarget(trackerResults);
+    if (bestTargetId != -1) {
+        aimPublisher->publish(trackerResults[bestTargetId]);
+    }
 }

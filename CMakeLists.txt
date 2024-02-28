@@ -55,7 +55,6 @@ add_executable(${PROJECT_NAME}_node
         src/marker_tracker_controller/marker_tracker_controller.cpp
         src/tracker/tracker.cpp
         src/armor_tracker/armor_tracker.cpp
-        src/tracker/tracker_result.cpp
         src/buff_tracker/buff_tracker.cpp
         src/kalman/kalman.cpp
         src/params/kalman_params.cpp

@@ -4,7 +4,7 @@
 
 #include "buff_tracker/buff_tracker.h"
 
-BuffTracker::BuffTracker() : Tracker(-1) {}
+BuffTracker::BuffTracker() : Tracker(0) {}
 
 robot_serial::msg::Aim BuffTracker::track(marker_detector::msg::DetectResult detectResult) {
     robot_serial::msg::Aim aimShoot;

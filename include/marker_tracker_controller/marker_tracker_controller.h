@@ -25,7 +25,7 @@ private:
         AUTO_AIM, BUFF, OUTPOST, NUM
     } mode = Mode::AUTO_AIM;
 
-    std::unordered_map<int, Tracker::SharedPtr> trackers;
+    std::array<Tracker::SharedPtr, 8> trackers;
 
     rclcpp::Publisher<robot_serial::msg::Aim>::SharedPtr aimPublisher;
 
@@ -33,11 +33,17 @@ private:
 
     rclcpp::Subscription<robot_serial::msg::Mode>::SharedPtr modeSubscription;
 
-    void detectResultsCallback(marker_detector::msg::DetectResults::SharedPtr detectResults);
+    rclcpp::TimerBase::SharedPtr kalmanTimer;
 
-    void modeCallback(robot_serial::msg::Mode::SharedPtr mode);
+    marker_detector::msg::DetectResults::ConstSharedPtr lastDetectResults;
 
-    static int calculateBestTarget(const TrackerResults& trackerResults);
+    void detectResultsCallback(const marker_detector::msg::DetectResults::ConstSharedPtr &detectResults);
+
+    void modeCallback(const robot_serial::msg::Mode::ConstSharedPtr &modeMsg);
+
+    void kalmanCallback();
+
+    static int calculateBestTarget(const TrackerResults &trackerResults);
 
 public:
     MarkerTrackerController();

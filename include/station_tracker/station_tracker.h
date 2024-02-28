@@ -21,7 +21,7 @@ public:
 
     robot_serial::msg::Aim track(marker_detector::msg::DetectResult detectResult) override;
 
-    void reinitialize(std::vector<uint8_t> config) override;
+    void reinitialize(const std::vector<uint8_t> &config) override;
 };
 
 

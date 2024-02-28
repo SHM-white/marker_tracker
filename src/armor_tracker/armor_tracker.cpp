@@ -8,6 +8,7 @@ ArmorTracker::ArmorTracker(int id) : Tracker(id), kalman_CV(Kalman::KalmanType::
 
 robot_serial::msg::Aim ArmorTracker::track(marker_detector::msg::DetectResult detectResult) {
     robot_serial::msg::Aim aimShoot;
+    aimShoot.success = detectResult.detect_success;
     marker_tracker::msg::Kalman kalman_scope;
     auto angles = toEulerAngles(detectResult.pose.orientation);
     double armorYaw = angles(2);
@@ -26,7 +27,6 @@ robot_serial::msg::Aim ArmorTracker::track(marker_detector::msg::DetectResult de
         //用示波器显示卡尔曼
         kalman_scope.header.stamp = rclcpp::Clock().now();
 
-
         kalman_scope.kalman_x = kf_output.x;
         kalman_scope.kalman_y = kf_output.y;
         kalman_scope.kalman_z = kf_output.z;
@@ -43,6 +43,15 @@ robot_serial::msg::Aim ArmorTracker::track(marker_detector::msg::DetectResult de
 
         if (kf_output.is_success) {
             //弹道重力补偿
+            kf_output.x= kalman_scope.raw_x;
+            kf_output.y= kalman_scope.raw_y;
+            kf_output.z= kalman_scope.raw_z;
+            kf_output.v_x=0;
+            kf_output.v_y=0;
+            kf_output.v_z=0;
+            kf_output.a_x=0;
+            kf_output.a_y=0;
+            kf_output.a_z=0;
             ballistics.KF_aim_shoot(aimShoot, kf_output, ballisticsParams.ballSpeed, ballisticsParams.gimbalYaw,
                                     detectResult.id);
         } else {

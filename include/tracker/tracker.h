@@ -13,7 +13,6 @@
 #include <robot_serial/msg/aim.hpp>
 #include <marker_detector/msg/detail/detect_result__struct.hpp>
 
-#include "tracker_result.h"
 #include "ballistics/ballistics.h"
 
 class Tracker {
@@ -23,14 +22,18 @@ protected:
 public:
     explicit Tracker(int _id);
 
+    virtual ~Tracker() = default;
+
     virtual robot_serial::msg::Aim track(marker_detector::msg::DetectResult detectResult) = 0;
 
     using SharedPtr = std::shared_ptr<Tracker>;
 
-    static Eigen::Vector3d toEulerAngles(const geometry_msgs::msg::Quaternion& quaternion);
+    static Eigen::Vector3d toEulerAngles(const geometry_msgs::msg::Quaternion &quaternion);
 
-    virtual void reinitialize(std::vector<uint8_t> config);
+    virtual void reinitialize(const std::vector<uint8_t> &config);
 };
+
+using TrackerResults = std::vector<robot_serial::msg::Aim>;
 
 
 #endif //MARKER_TRACKER_TRACKER_H

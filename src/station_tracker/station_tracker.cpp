@@ -30,7 +30,7 @@ robot_serial::msg::Aim StationTracker::track(marker_detector::msg::DetectResult 
     return aimShoot;
 }
 
-void StationTracker::reinitialize(std::vector<uint8_t> config) {
+void StationTracker::reinitialize(const std::vector<uint8_t> &config) {
     ekf_STATION.reset_state();//重新初始化
     ekf_STATION.set_omiga(config[0], true);
 }
