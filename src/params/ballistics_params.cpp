@@ -26,7 +26,8 @@ void BallisticsParams::gimbalCallback(const robot_serial::msg::Gimbal::ConstShar
     gimbalRoll = msg->roll * M_PI / 180;
     ballSpeed = msg->bullet % 128;
 
-    gimbalPitch -= camParams.getPitchOffset();
+    gimbalPitch += camParams.getPitchOffset() * M_PI / 180;
+    gimbalYaw += camParams.getYawOffset() * M_PI / 180;
 
     cam2world(0, 0) = cos(gimbalYaw) * cos(gimbalPitch);
     cam2world(0, 1) = cos(gimbalYaw) * sin(gimbalPitch) * sin(gimbalRoll) - sin(gimbalYaw) * cos(gimbalRoll);

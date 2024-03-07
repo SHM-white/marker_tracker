@@ -43,15 +43,15 @@ robot_serial::msg::Aim ArmorTracker::track(marker_detector::msg::DetectResult de
 
         if (kf_output.is_success) {
             //弹道重力补偿
-            kf_output.x= kalman_scope.raw_x;
-            kf_output.y= kalman_scope.raw_y;
-            kf_output.z= kalman_scope.raw_z;
-            kf_output.v_x=0;
-            kf_output.v_y=0;
-            kf_output.v_z=0;
-            kf_output.a_x=0;
-            kf_output.a_y=0;
-            kf_output.a_z=0;
+//            kf_output.x= kalman_scope.raw_x;
+//            kf_output.y= kalman_scope.raw_y;
+//            kf_output.z= kalman_scope.raw_z;
+//            kf_output.v_x=0;
+//            kf_output.v_y=0;
+//            kf_output.v_z=0;
+//            kf_output.a_x=0;
+//            kf_output.a_y=0;
+//            kf_output.a_z=0;
             ballistics.KF_aim_shoot(aimShoot, kf_output, ballisticsParams.ballSpeed, ballisticsParams.gimbalYaw,
                                     detectResult.id);
         } else {
