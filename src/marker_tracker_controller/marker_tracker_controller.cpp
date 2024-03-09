@@ -62,7 +62,7 @@ void MarkerTrackerController::kalmanCallback() {
     if (!lastDetectResults) {
         return;
     }
-    TrackerResults trackerResults(8);
+    TrackerResults trackerResults(9);
     for (const auto &detectResult: lastDetectResults->detect_results) {
         trackerResults.push_back(trackers[detectResult.id]->track(detectResult));
     }
