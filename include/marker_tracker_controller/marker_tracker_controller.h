@@ -25,7 +25,7 @@ private:
         AUTO_AIM, BUFF, OUTPOST, NUM
     } mode = Mode::AUTO_AIM;
 
-    std::array<Tracker::SharedPtr, 8> trackers;
+    std::array<Tracker::SharedPtr, 9> trackers;
 
     rclcpp::Publisher<robot_serial::msg::Aim>::SharedPtr aimPublisher;
 

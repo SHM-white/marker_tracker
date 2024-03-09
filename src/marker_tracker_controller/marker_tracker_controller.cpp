@@ -28,7 +28,7 @@ void MarkerTrackerController::init() {
     ballisticsParams.init(shared_from_this());
     camParams.init(shared_from_this());
     kalManParams.init(shared_from_this());
-    for (int i = 1; i <= 7; i++) {
+    for (int i = 1; i <= 8; i++) {
         trackers[i] = std::make_shared<ArmorTracker>(i);
     }
     trackers[0] = std::make_shared<BuffTracker>();
